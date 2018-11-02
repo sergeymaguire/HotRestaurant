@@ -1,0 +1,27 @@
+{
+  "name": "Hot-Restaurant",
+  "version": "1.0.0",
+  "description": "A Node &amp; Express based web application for handling restaurant reservation requests.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomtom28/Hot-Restaurant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomtom28/Hot-Restaurant/issues"
+  },
+  "homepage": "https://github.com/tomtom28/Hot-Restaurant#readme"
+}
