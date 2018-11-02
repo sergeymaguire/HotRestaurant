@@ -83,7 +83,7 @@
 					var tableNumber = i + 1;
 
 				
-					$("#tableWell-"+ i+1).append('<h2><button id="' + i + '" class="label label-danger clearReservation">X</button> <span class="label label-primary">' + tableNumber + "</span> " + tableData[i].name + "</h2>");
+					$("#tableWell-"+ i+1).append('<h2><button id="' + i + '" class="label label-danger clearReservation">X</button> <span class="label label-primary">' + tableNumber + "</span> " + tableData[i].name + "</h2>" + tableData[i].phone + tableData[i].email);
 
 				}
 				
@@ -105,14 +105,13 @@
 
 					var tableNumber = i + 1;
 
-					// Then display the remaining fields in the HTML (Section Name, Date, URL)
+		
 					$("#waitlistWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].name + "</h2>");
 				}
 	}
 
 	
 	function clearTable(){
-		console.log("clearing table");
 		var currentURL = window.location.origin;
 		$.ajax({url: currentURL + "/api/clear", method: "POST"})
 
@@ -131,7 +130,6 @@ $(document).on('click', ".clearReservation", function(){
 	})
 	  .done(function( tables ) {
 	  	$(this).remove();
-	  	console.log(tables);
 	  	runTableQuery();
 	  });
 })

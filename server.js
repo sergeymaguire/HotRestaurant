@@ -1,33 +1,25 @@
 
 var express = require('express'),
  bodyParser = require('body-parser'),
- path = require('path');
-
+ path = require('path'),
+ tables = [
+];
 
 var app = express();
 var PORT = 3000;
 
 HandleDataPArse();
 
-
 AJAXRoute();
-
-
-
-var tables = [
-  ];
 
 app.get('/api/tables', function (req, res) {
 
   res.json(tables);
 });
 
-
 const CheckForReservation = CheckReservation();
 
-
 DeleteReservations();
-
 
 function HandleDataPArse() {
   app.use(bodyParser.json());
