@@ -16,17 +16,14 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 
 app.get('/', function (req, res) {
-	console.log('home page requested');
 	res.sendFile(path.join(__dirname, 'app/public/index.html'));
 });
 
 app.get('/tables', function (req, res) {
-  console.log('tables page requested');
   res.sendFile(path.join(__dirname, 'app/public/tables.html'));
 });
 
 app.get('/reserve', function (req, res) {
-  console.log('reserve page requested');
   res.sendFile(path.join(__dirname, 'app/public/reserve.html'));
 });
 
@@ -36,14 +33,11 @@ var tables = [
   ];
 
 app.get('/api/tables', function (req, res) {
-
   res.json(tables);
 });
 
 
 app.post('/api/reserve', function (req, res) {
-	console.log('reserve request submitted');
-	console.log(req.body);
 
   var newReservation = req.body;
 
