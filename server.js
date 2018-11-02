@@ -15,17 +15,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 
 
-app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname, 'app/public/index.html'));
-});
-
-app.get('/tables', function (req, res) {
-  res.sendFile(path.join(__dirname, 'app/public/tables.html'));
-});
-
-app.get('/reserve', function (req, res) {
-  res.sendFile(path.join(__dirname, 'app/public/reserve.html'));
-});
+GetReservationsAndTables();
 
 
 
@@ -37,37 +27,49 @@ app.get('/api/tables', function (req, res) {
 });
 
 
-app.post('/api/reserve', function (req, res) {
-
-  var newReservation = req.body;
-
-  tables.push(newReservation);
-
-  var isBooked;
-  if(tables.length <= 5){
-    isBooked = true;
-  }
-  else{
-    isBooked = false;
-  }
-
-  res.json(isBooked);
-
-});
+const SeeIfBooked = BookLimitIsFive();
 
 
-app.post('/api/clear', function (req, res) {
-  console.log('clear all tables');
-  tables = [];
-  res.sendFile(path.join(__dirname, 'app/public/tables.html'));
-});
+YEAHBOIII();
 
-app.post('/api/killreservation', function (req, res) {
-  console.log(req.body.id);
-  tables.splice(req.body.id, 1);
-  res.json(tables);
-});
 
+function BookLimitIsFive() {
+  return app.post('/api/reserve', function (req, res) {
+    var newReservation = req.body;
+    tables.push(newReservation);
+    var isBooked;
+    if (tables.length <= 5) {
+      isBooked = true;
+    }
+    else {
+      isBooked = false;
+    }
+    res.json(isBooked);
+  });
+}
+
+function YEAHBOIII() {
+  app.post('/api/clear', function (req, res) {
+    tables = [];
+    res.sendFile(path.join(__dirname, 'app/public/tables.html'));
+  });
+  app.post('/api/killreservation', function (req, res) {
+    tables.splice(req.body.id, 1);
+    res.json(tables);
+  });
+}
+
+function GetReservationsAndTables() {
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'app/public/index.html'));
+  });
+  app.get('/tables', function (req, res) {
+    res.sendFile(path.join(__dirname, 'app/public/tables.html'));
+  });
+  app.get('/reserve', function (req, res) {
+    res.sendFile(path.join(__dirname, 'app/public/reserve.html'));
+  });
+}
 
 function nodeServer() {
 app.listen(PORT, function () {
