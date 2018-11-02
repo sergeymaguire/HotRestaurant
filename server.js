@@ -8,10 +8,7 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+ParseJSONWithNPMBodyParser();
 
 
 
@@ -19,7 +16,7 @@ GetReservationsAndTables();
 
 
 
-var tables = [
+var tablesOfReservations = [
   ];
 
 app.get('/api/tables', function (req, res) {
@@ -30,15 +27,22 @@ app.get('/api/tables', function (req, res) {
 const SeeIfBooked = BookLimitIsFive();
 
 
-YEAHBOIII();
+DeleteReservations();
 
+
+function ParseJSONWithNPMBodyParser() {
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.text());
+  app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+}
 
 function BookLimitIsFive() {
   return app.post('/api/reserve', function (req, res) {
     var newReservation = req.body;
-    tables.push(newReservation);
+    tablesOfReservations.push(newReservation);
     var isBooked;
-    if (tables.length <= 5) {
+    if (tablesOfReservations.length <= 5) {
       isBooked = true;
     }
     else {
@@ -48,9 +52,9 @@ function BookLimitIsFive() {
   });
 }
 
-function YEAHBOIII() {
+function DeleteReservations() {
   app.post('/api/clear', function (req, res) {
-    tables = [];
+    tablesOfReservations = [];
     res.sendFile(path.join(__dirname, 'app/public/tables.html'));
   });
   app.post('/api/killreservation', function (req, res) {
